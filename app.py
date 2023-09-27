@@ -4,7 +4,7 @@ import base64
 
 app = Flask(__name__)
 
-# Datos de configuración de la aplicación Okta
+# Okta configuration
 okta_client_id = "0oabkf2a5mazO52R65d7"
 okta_client_secret = "5VD_KvJL3h_Y4crXgDU87GuDNbcOR-6SoIyvDUXsZVlToRPfo0CqhVhN0jaY0xGA" 
 okta_redirect_uri = "http://localhost:8080/authorization-code/callback"
@@ -19,11 +19,13 @@ def authorization_callback():
     # Obtiene el código y el estado del parámetro de la URL de retorno
     code = request.args.get("code")
     state = request.args.get("state")
-
+    print('\n')
+    print(base64.b64encode((okta_client_id + "," + okta_client_secret).encode()))
+    print('\n')
     # Realiza el POST a la URL de Okta para obtener el token de acceso
-    okta_token_url = "https://dev-16281537.okta.com/oauth2/default/v1/token"
+    okta_token_url = "https://dev-95119950.okta.com/oauth2/default/v1/token"
     headers = {
-        "Authorization": base64.b64encode((okta_client_id + "," + okta_client_secret)).encode(),
+        "Authorization": base64.b64encode((okta_client_id + "," + okta_client_secret).encode()),
         "Content-Type": "application/x-www-form-urlencoded"
     }
     params = {
